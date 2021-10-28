@@ -9,15 +9,15 @@ with open("hl.json") as file:
     hl_data = {'highlights': []}
 
     for hl in data['highlights']:
-
-        hl_data['highlights'].append({
-            'text': hl['text'],
-            'title': next(item['name'] for item in data['documents'] if item['id'] == hl['document_id']),
-            'source_type': 'rextract',
-            'category': 'books',
-            'location_type': 'page',
-            'location': hl['page_number']
-        })
+        if hl['text'] != '':
+            hl_data['highlights'].append({
+                 'text': hl['text'],
+                 'title': next(item['name'] for item in data['documents'] if item['id'] == hl['document_id']),
+                'source_type': 'rextract',
+                 'category': 'books',
+                 'location_type': 'page',
+                 'location': hl['page_number']
+            })
 
     cont = input(f"Found {len(hl_data['highlights'])} new highlights. Upload to Readwise? Y/N:  ")
     if cont.lower() == 'n':
